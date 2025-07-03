@@ -35,8 +35,8 @@ To run the node api you will need to `task api-node:install` to install the depe
 
 After installing the dependencies, `task api-node:run` will run the api in development mode with nodemon for restarting the app when you make source code changes.
 
-### api-golangjnjjjjnnjnjj
-
+### api-golang
+this triggers github actions
 To run the golang api you will need to run `task api-golang:install`.
 
 After installing the dependencies, `task api-golang:run` will build and run the api.
