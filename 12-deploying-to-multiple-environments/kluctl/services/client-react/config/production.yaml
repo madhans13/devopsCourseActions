@@ -1,2 +1,3 @@
 clientReact:
-  version: 1.0.0 # PRODUCTION_IMAGE_TAG
+  version: madhan # PRODUCTION_IMAGE_TAG
+  image: madhan13/ifixitt-frontend

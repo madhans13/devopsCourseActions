@@ -1,8 +1,9 @@
 version: "3"
 
 vars:
-  IMAGE_REPO: sidpalas/devops-directive-docker-course-client-react-nginx
-  IMAGE_TAG: foobarbaz
+  IMAGE_REPO: madhan13/ifixitt-frontend
+  IMAGE_TAG:
+    sh: git describe --tags --always --first-parent --match "[0-9]*.[0-9]*.[0-9]*"
 
 tasks:
   build-container-image:
@@ -11,14 +12,18 @@ tasks:
       - docker build -t {{.IMAGE_REPO}}:{{.IMAGE_TAG}} .
 
   build-container-image-multi-arch:
-    desc: Build multi-arch container image
+    desc: Build container image for multiple architectures
     cmds:
-      - |
-        docker buildx build \
+      - docker buildx build \
         --platform linux/amd64,linux/arm64 \
         -t {{.IMAGE_REPO}}:{{.IMAGE_TAG}} \
         --push \
         .
+
+  push-container-image:
+    desc: Push container image
+    cmds:
+      - docker push {{.IMAGE_REPO}}:{{.IMAGE_TAG}}
 
   install:
     desc: install dependencies

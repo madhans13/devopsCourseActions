@@ -17,22 +17,22 @@ spec:
     spec:
       containers:
         - name: load-generator
-          image: sidpalas/devops-directive-kubernetes-course-load-generator-python:foobarbaz
+          image: madhan13/devops-directive-kubernetes-course-load-generator-python:foobarbaz
           imagePullPolicy: Always
           env:
             - name: API_URL
               value: http://api-node.demo-app.svc.cluster.local:3000
             - name: DELAY_MS
               value: "500"
-          # Could alternatively move these to a configmap
-          # envFrom:
-          #   - configMapRef:
-          #       name: load-generator-config
+          envFrom:
+            - configMapRef:
+                name: load-generator-config
           resources:
             limits:
-              memory: "50Mi"
+              memory: "128Mi"
+              cpu: "500m"
             requests:
-              memory: "50Mi"
+              memory: "32Mi"
               cpu: "100m"
           securityContext:
             allowPrivilegeEscalation: false

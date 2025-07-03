@@ -2,18 +2,35 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: db-migrator
-  namespace: demo-app
+  namespace: 07--demo-app
 spec:
   template:
     spec:
       containers:
-        - name: migrate
-          image: sidpalas/devops-directive-kubernetes-course-db-migrator:foobarbaz
+        - name: db-migrator
+          image: madhan13/devops-directive-kubernetes-course-db-migrator:foobarbaz
+          command: ["migrate"]
           args:
-            - -path=/app/migrations
-            - -database=$(DATABASE_URL)?sslmode=disable
-            - up
-          envFrom:
-            - secretRef:
-                name: db-password
-      restartPolicy: OnFailure
+            - "-path"
+            - "/app/migrations"
+            - "-database"
+            - "postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgresql.07--postgres.svc.cluster.local:5432/$(POSTGRES_DB)?sslmode=disable"
+            - "up"
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-password
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-password
+                  key: password
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: db-password
+                  key: database
+      restartPolicy: Never
+  backoffLimit: 4

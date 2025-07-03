@@ -1,2 +1,3 @@
 clientReact:
   version: madhan # STAGING_IMAGE_TAG
+  image: madhan13/ifixitt-frontend
