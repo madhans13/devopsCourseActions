@@ -28,7 +28,7 @@ It's way more convenient to run postgres in a container, so we will do that.
 `task postgresql:run-postgres` will start postgres in a container and publish port 5432 from the container to your localhost.
 
 **🚨 NOTE:** After starting the database, you need to run the migration file in `./postgresql/migrations` to create the table that the APIs use. This can be done with `postgresql:run-psql-init-script`.
-
+dshnhsdhsd
 ### api-node
 hicdmfdkfdjnfjdnfjndjfnjnjn
 To run the node api you will need to `task api-node:install` to install the dependencies.
